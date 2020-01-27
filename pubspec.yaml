@@ -57,6 +57,148 @@ flutter:
   #  - images/a_dot_burr.jpeg
   #  - images/a_dot_ham.jpeg
 
+  assets:
+    - images/images/
+    - images/chewy/
+    - images/products/
+    - images/products/1.jpg
+    - images/products/2.jpg
+    - images/products/3.jpg
+    - images/products/4.jpg
+    - images/products/5.jpg
+    - images/products/6.jpg
+    - images/images/products_LA/1.jpeg
+    - images/images/products_LA/2.jpg
+    - images/images/products_LA/3.jpg
+    - images/images/products_LA/4.jpg
+    - images/images/products_LA/5.jpg
+    - images/images/products_LA/6.jpg
+    - images/images/products_LA/7.jpg
+    - images/images/products_LA/8.jpg
+    - images/images/products_LA/9.jpg
+    - images/images/products_LA/16.jpg
+    - images/images/products_LA/17.jpg
+    - images/images/products_LA/15.jpg
+    - images/images/icon/perros.png
+    - images/images/icon/gatos.jpg
+    # aqui va la mochila
+    - images/products/cat_backpack/1.jpg
+    - images/products/cat_backpack/2.jpg
+    - images/products/cat_backpack/3.jpg
+    - images/products/cat_backpack/4.jpg
+    - images/products/cat_backpack/5.jpg
+    - images/products/cat_backpack/6.jpeg
+    # aqui va el paw print pad
+    - images/products/paw_print_pad/1.jpg
+    - images/products/paw_print_pad/2.jpg
+    - images/products/paw_print_pad/3.jpg
+    - images/products/paw_print_pad/4.jpg
+    - images/products/paw_print_pad/5.jpg
+    - images/products/paw_print_pad/6.jpg
+
+    # aqui va el dog paw clena
+    - images/products/dog_paw_clean/1.jpg
+    - images/products/dog_paw_clean/2.jpg
+    - images/products/dog_paw_clean/3.jpg
+    - images/products/dog_paw_clean/4.jpg
+    - images/products/dog_paw_clean/5.jpg
+    - images/products/dog_paw_clean/6.jpg
+    - images/products/dog_paw_clean/7.jpg
+    - images/products/dog_paw_clean/8.jpg
+    - images/products/dog_paw_clean/9.jpg
+    - images/products/dog_paw_clean/10.jpg
+    - images/products/dog_paw_clean/11.jpg
+
+    # aqui va el beds for pets
+    - images/products/beds_for_pets/1.jpg
+    - images/products/beds_for_pets/2.jpg
+    - images/products/beds_for_pets/3.jpg
+    - images/products/beds_for_pets/4.jpg
+    - images/products/beds_for_pets/5.jpg
+    - images/products/beds_for_pets/6.jpg
+    - images/products/beds_for_pets/7.jpg
+
+    # aqui va el hair remover
+    - images/products/hair_remover/1.jpg
+    - images/products/hair_remover/2.jpg
+    - images/products/hair_remover/3.jpg
+    - images/products/hair_remover/4.jpg
+    - images/products/hair_remover/5.jpg
+    - images/products/hair_remover/6.jpg
+    - images/products/hair_remover/7.jpg
+    - images/products/hair_remover/8.jpg
+
+
+    # aqui va el portable water bottle
+    - images/products/portable_water_bottle/1.jpg
+    - images/products/portable_water_bottle/2.jpg
+    - images/products/portable_water_bottle/3.jpg
+    - images/products/portable_water_bottle/4.jpg
+    - images/products/portable_water_bottle/5.jpg
+    - images/products/portable_water_bottle/6.jpg
+    - images/products/portable_water_bottle/7.jpg
+
+    # aqui va elbags dispenser
+    - images/products/bags_dispenser/1.jpg
+    - images/products/bags_dispenser/2.jpg
+    - images/products/bags_dispenser/3.jpg
+    - images/products/bags_dispenser/4.jpg
+    - images/products/bags_dispenser/5.jpg
+    - images/products/bags_dispenser/6.jpg
+    - images/products/bags_dispenser/7.jpg
+    - images/products/bags_dispenser/8.jpg
+
+    # aqui va el food treat ball
+    - images/products/food_treat_ball/1.jpg
+    - images/products/food_treat_ball/2.jpg
+    - images/products/food_treat_ball/3.jpg
+    - images/products/food_treat_ball/4.jpg
+    - images/products/food_treat_ball/5.jpg
+    - images/products/food_treat_ball/6.jpg
+    - images/products/food_treat_ball/7.jpg
+
+    # aqui va el dog carrier backpack
+    - images/products/dog_carrier_backpack/1.jpg
+
+    # aqui va el dog cpoop rolls
+    - images/products/poop_rolls/1.jpg
+
+    # aqui va el waterproof cat backpack
+    - images/products/waterproof_cat_backpack/1.jpg
+    - images/products/waterproof_cat_backpack/2.jpg
+    - images/products/waterproof_cat_backpack/3.jpg
+    - images/products/waterproof_cat_backpack/4.jpg
+    - images/products/waterproof_cat_backpack/5.jpg
+    - images/products/waterproof_cat_backpack/6.jpg
+    - images/products/waterproof_cat_backpack/7.jpg
+    - images/products/waterproof_cat_backpack/8.jpg
+
+    # aqui va el finger t
+    - images/products/finger_t/1.jpg
+    - images/products/finger_t/2.jpg
+    - images/products/finger_t/3.jpg
+
+    #iconos
+    - images/iconos/google.jpg
+
+    - images/assets/
+
+    - assets/img/people.jpg
+    - assets/img/ann.jpg
+    - assets/img/girl.jpg
+    - assets/img/mountain.jpeg
+    - assets/img/beach.jpeg
+    - assets/img/beach_palm.jpeg
+    - assets/img/mountain_stars.jpeg
+    - assets/img/sunset.jpeg
+    - assets/img/river.jpeg
+
+    #banner
+    - images/images/banner/perrobanner1.png
+    - images/images/banner/banner2.jpg
+    - images/images/banner/banner3.jpeg
+
+
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 
