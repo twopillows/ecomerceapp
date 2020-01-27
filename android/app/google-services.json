@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "778745882762",
+    "firebase_url": "https://swaptrendymac.firebaseio.com",
+    "project_id": "swaptrendymac",
+    "storage_bucket": "swaptrendymac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778745882762:android:c4208324648f979ab6a573",
+        "android_client_info": {
+          "package_name": "com.flutter.ecomerce.ecomerceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "778745882762-iah7nue7pl4n9hejc1qj7ev0u1ba08eh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutter.ecomerce.ecomerceapp",
+            "certificate_hash": "c72ed1262ce167a268a363a66fcb4c4f2c2126da"
+          }
+        },
+        {
+          "client_id": "778745882762-pvfol3bvpm6tar149ca3m6asg6caa0uk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1h8p6_dYotbL6uxPLIWsHyJ5P97atOfI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "778745882762-pvfol3bvpm6tar149ca3m6asg6caa0uk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "778745882762-7haound8obks40261e7qeq5bu1k3hspp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.anncode.platzitripsapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
