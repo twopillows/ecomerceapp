@@ -1,17 +1,13 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:ecomerceapp/User/ui/screens/favorites.dart';
 import 'package:ecomerceapp/User/bloc/bloc_user.dart';
 import 'package:ecomerceapp/User/ui/screens/account.dart';
-import 'package:ecomerceapp/User/ui/screens/profile_trips.dart';
-import 'package:ecomerceapp/Product/ui/screens/home_trips.dart';
-import 'package:ecomerceapp/Product/ui/screens/search_trips.dart';
 import 'package:ecomerceapp/Product/ui/screens/home_screen.dart';
 
 class TiendaPrincipalCupertino extends StatefulWidget {
-  final String uid; //include this
+  final String uid;
 
   TiendaPrincipalCupertino({Key key, this.uid}) : super(key: key);
 
@@ -29,21 +25,11 @@ class _TiendaPrincipalCupertinoState extends State<TiendaPrincipalCupertino> {
         tabBar: CupertinoTabBar(
           items: [
             BottomNavigationBarItem(
-/*
-                activeIcon: CupertinoTabView(
-                  builder: (BuildContext context) => BlocProvider(
-                    bloc: UserBloc(),
-                    //child: HomePage(),
-                    child: HomeScreen(),
-                  ),
-                ),
-*/
                 icon: Icon(
                   Icons.home,
                   color: Colors.blue,
                 ),
                 title: Text("Home")),
-            //BadgeIconButton(itemCount: 0, icon: Icons.favorite),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.favorite,
@@ -56,10 +42,9 @@ class _TiendaPrincipalCupertinoState extends State<TiendaPrincipalCupertino> {
                   color: Colors.blue,
                 ),
                 title: Text("Account"))
-            //activeIcon: TiendaPrincipalCupertino()),
           ],
         ),
-        tabBuilder: (BuildContext context, int index) {
+        tabBuilder: ((BuildContext context, int index) {
           switch (index) {
             case 0:
               return CupertinoTabView(
@@ -84,7 +69,7 @@ class _TiendaPrincipalCupertinoState extends State<TiendaPrincipalCupertino> {
                 ),
               );
           }
-        },
+        }),
       ),
     );
   }

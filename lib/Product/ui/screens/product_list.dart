@@ -2,13 +2,9 @@ import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:ecomerceapp/Product/ui/widgets/header.dart';
 import 'package:ecomerceapp/Product/ui/screens/product_details.dart';
 import 'package:ecomerceapp/User/bloc/bloc_user.dart';
 import 'package:ecomerceapp/User/ui/screens/cart.dart';
-import 'package:ecomerceapp/Product/ui/screens/product_details.dart';
-import 'package:ecomerceapp/tienda_principal_cupertino.dart';
-import 'package:ecomerceapp/widgets/custom_appbar_text.dart';
 import 'package:ecomerceapp/widgets/size_config.dart';
 
 class ProductList extends StatefulWidget {
@@ -25,12 +21,8 @@ class _ProductListState extends State<ProductList> {
     return SafeArea(
       child: Scaffold(
           body: Container(
-        //height: 420,
-        //width: MediaQuery.of(context).size.width,
         color: Colors.white,
         child: Column(
-          //crossAxisAlignment: CrossAxisAlignment.start,
-          //mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             //Here the header appBar
             _headerProductList(context),
@@ -165,17 +157,6 @@ class _ProductListState extends State<ProductList> {
                           ),
 
                           Padding(padding: EdgeInsets.all(8)),
-                          //BOTON ADD TO CART
-                          /*RaisedButton(
-
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20)),
-                            onPressed: () => Navigator.of(context).push(
-                                //aqui va product details cdo se da clicks ProductDetails()
-                                MaterialPageRoute(
-                                    builder: (context) => ProductDetails())),
-                            child: Text("ADD TO CART"),
-                          ),*/
                         ],
                       ),
                     )
@@ -201,8 +182,6 @@ class _ProductListState extends State<ProductList> {
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 colors: [
-                  //Color(0xff1e2a54),
-                  //Color(0xff1773b3),
                   Color(0xFF0060FF),
                   Color(0xFF00A1FF),
                 ],
@@ -229,15 +208,9 @@ class _ProductListState extends State<ProductList> {
                     Navigator.pop(context);
                   }, //alignment: Alignment.centerLeft,
                 ),
-                /*Image.asset(
-                  'assets/images/amazon_logo.png',
-                  fit: BoxFit.fill,
-                  width: 80,
-                ),*/
 
                 InkWell(
                   onTap: () => Navigator.of(context).pop(),
-                  //Navigator.of(context).push(MaterialPageRoute(builder: (context) => TiendaPrincipalCupertino())),
                   child: Text(
                     'Swap Trendy',
                     style: TextStyle(
@@ -248,13 +221,8 @@ class _ProductListState extends State<ProductList> {
                   ),
                 ),
 
-                /*TitleHeader(
-                title: 'Swap Trendy',
-
-                //style: TextStyle(color: Colors.white, fontSize: 25),
-              ),*/
                 StreamBuilder<DocumentSnapshot>(
-                    stream: userBloc.courseDocStream,
+                    stream: userBloc.currentUserStream,
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.active) {
@@ -282,18 +250,6 @@ class _ProductListState extends State<ProductList> {
                         );
                       }
                     }),
-
-                /*IconButton(
-                  icon: Icon(
-                    Icons.shopping_cart,
-                    color: Colors.white,
-                    size: 25,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Cart()));
-                  },
-                ),*/
               ],
             ),
           ),
@@ -398,42 +354,3 @@ class _ProductListState extends State<ProductList> {
       "numero": 11,
     },
   ];*/
-
-/*appBar: AppBar(
-            elevation: 0.1,
-            backgroundColor: Color(0xFF108CED),
-            centerTitle: true,
-            title: InkWell(
-              //temporal quitar el app
-              onTap: () {
-                Navigator.of(context).pop();
-                //Navigator.push(
-                   // context, MaterialPageRoute(builder: (context) => TiendaPrincipalCupertino()));
-              },
-              child: Text(
-                'Swap Trendy',
-                style: TextStyle(color: Colors.black),
-              ),
-            ),
-            actions: <Widget>[
-              IconButton(
-                  icon: Icon(
-                    Icons.search,
-                    color: Colors.black,
-                  ),
-                  onPressed: null),
-              IconButton(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: Colors.black,
-                ),
-                onPressed: () => Navigator.push(
-                    context, MaterialPageRoute(builder: (context) => Cart())),
-              ),
-              //Aqui esta l icono de busqueda q quiero pone abajo en una barra
-              //pa eso tngo q aumentar el height del appbar
-            ],
-            iconTheme: IconThemeData(color: Colors.black),
-            // el color de los botones puede ponersse en cada iconButton como
-            // //atributo del icon o con icontheme pa  sea pa todos
-          ),*/

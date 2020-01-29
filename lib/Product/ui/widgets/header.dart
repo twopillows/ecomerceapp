@@ -66,7 +66,7 @@ class _HeaderState extends State<Header> {
                 ),
               ),
               StreamBuilder<DocumentSnapshot>(
-                  stream: userBloc.courseDocStream,
+                  stream: userBloc.currentUserStream,
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.active) {
                       var courseDocument = snapshot.data.data;

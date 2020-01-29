@@ -1,14 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:ecomerceapp/Product/model/product.dart';
 import 'package:ecomerceapp/User/bloc/bloc_user.dart';
 import 'package:ecomerceapp/User/ui/screens/cart.dart';
-import 'package:ecomerceapp/User/ui/screens/cart.dart';
-import 'package:ecomerceapp/User/repository/cloud_firestore_api.dart';
 import 'package:ecomerceapp/widgets/custom_appbar_text.dart';
 import 'package:ecomerceapp/widgets/size_config.dart';
 
@@ -162,15 +159,8 @@ class _ProductDetailsState extends State<ProductDetails> {
                       child: GridTile(
                         child: Container(
                           color: Colors.white,
-                          /*  child: Carousel(
-                            boxFit: BoxFit.cover,
-                            dotSize: 4,
-                            dotColor: Colors.transparent,
-                            images: widget.product_info.,
-                          ),*/
                           child: CarouselSlider(
                             height: 300.0,
-                            //image path
                             //===================aquiiii lo q falta del numero q corresponde=====
                             items: widget.product_info[widget.numero].map((i) {
                               //items: widget.prueba.map((i) {
@@ -180,14 +170,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                                     width: MediaQuery.of(context).size.width,
                                     margin:
                                         EdgeInsets.symmetric(horizontal: 5.0),
-
-                                    child:
-                                        //Text(images[1].isEmpty.toString()),
-                                        Image.asset(
+                                    child: Image.asset(
                                       i.toString(),
                                       fit: BoxFit.cover,
                                     ),
-                                    //Text('text $i', style: TextStyle(fontSize: 16.0),)
                                   );
                                 },
                               );
@@ -350,29 +336,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                         ///AQUI ESTAN LOS FAVORTIOS
                         Expanded(
                             child: MaterialButton(
-                          onPressed: () {
-                            /*userBloc.updateFavoritesProductData(productoActual,
-                                    _auth.currentUser().then((FirebaseUser user))=> {});
-
-                                _auth
-                                    .currentUser()
-                                    .then((FirebaseUser user) => refProducts.document(user.uid).setData({
-                                  'myFavoriteProducts': userActual.myFavoriteProducts,
-                                }, merge: true));
-
-
-                                 _auth.currentUser().then((FirebaseUser user) =>
-                                 userBloc.updateFavoritesProductData(productoActual, user.uid.toString());
-                                 );*/
-                          },
+                          onPressed: () {},
                           child: IconButton(
                               icon: Icon(Icons.favorite),
                               color: Colors.red,
                               onPressed: () {
-                                //userBloc.updateFavoritesData(productoActual);
-                                //userBloc.obtenerListaProductosActual();
                                 userBloc.subirProductos(productoActual);
-                                //userBloc.updateFavoritesProductData(productoActual);
                               }),
                         )),
                       ],
@@ -394,14 +363,6 @@ class _ProductDetailsState extends State<ProductDetails> {
                             onPressed: () => {
                               userBloc.subirProductosCarrito(productoActual)
                             },
-
-                            //Navigator.of(context).push(
-                            //aqui va product details cdo se da clicks ProductDetails()
-                            //MaterialPageRoute(
-
-                            //subirProductosCarrito
-                            //aqui va para ek checkout o q salga una pantalla flotante mostrando l carrito
-                            //builder: (context) => Cart())),
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(20)),
                             color: Color(0xFF108CED),
@@ -506,36 +467,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             ],
           ),
         ),
-
-        //boton del add to cart
-        /*bottomNavigationBar: Container(
-          color: Colors.white,
-          height: 60,
-          child: Center(
-            child: Container(
-              width: 350,
-              height: 45,
-              child: RaisedButton(
-                elevation: 5,
-                onPressed: () => Navigator.of(context).push(
-                  //aqui va product details cdo se da clicks ProductDetails()
-                    MaterialPageRoute(
-                      //aqui va para ek checkout o q salga una pantalla flotante mostrando l carrito
-                        builder: (context) => Cart())),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20)),
-                color: Color(0xFF108CED),
-                child: Text(
-                  "Add To Cart",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white),
-                ),
-              ),
-            ),
-          ),
-        ),*/
       ),
     );
   }
@@ -576,17 +507,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Navigator.pop(context);
                 }, //alignment: Alignment.centerLeft,
               ),
-              /*Image.asset(
-                'assets/images/amazon_logo.png',
-                fit: BoxFit.fill,
-                width: 80,
-              ),*/
               TitleHeader(
                 title: 'Swap Trendy',
                 //style: TextStyle(color: Colors.white, fontSize: 25),
               ),
               StreamBuilder<DocumentSnapshot>(
-                  stream: userBloc.courseDocStream,
+                  stream: userBloc.currentUserStream,
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.active) {
                       var courseDocument = snapshot.data.data;
@@ -614,11 +540,6 @@ class _ProductDetailsState extends State<ProductDetails> {
             ],
           ),
         ),
-        /*Container(
-          padding: EdgeInsets.all(16),
-          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 46),
-          child: Center(child: Text("🚚FREE SHIPPING🚚"),),
-        ),*/
       ],
     );
   }
@@ -631,7 +552,6 @@ class SimilarProduct extends StatefulWidget {
 }
 
 class _SimilarProductState extends State<SimilarProduct> {
-  //var list = ProductDetails().product_info;
   var product_List = [
     {
       "name": "Paw Print Pad",
@@ -759,129 +679,43 @@ class Similar_Single_product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Hero(
-            tag: Text("hero 1"),
-            child: Material(
-              //elevation: 0.0,
-              //borderRadius: BorderRadius.all(Radius.circular(100.0)),
-              child: InkWell(
-                //borderRadius: BorderRadius.all(Radius.circular(30.0)),
-                onTap: () => Navigator.of(context).push(
-                    //aqui va product details cdo se da clicks ProductDetails()
-                    MaterialPageRoute(builder: (context) => ProductDetails())),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(15.0)),
-                  child: Stack(
-                    children: <Widget>[
-                      GridTile(
-                        child: Container(
-                          child: Image.asset(prod_picure, fit: BoxFit.cover),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Hero(
+        tag: Text("hero 1"),
+        child: Material(
+          child: InkWell(
+            onTap: () => Navigator.of(context).push(
+                //aqui va product details cdo se da clicks ProductDetails()
+                MaterialPageRoute(builder: (context) => ProductDetails())),
+            child: ClipRRect(
+              borderRadius: BorderRadius.all(Radius.circular(15.0)),
+              child: Stack(
+                children: <Widget>[
+                  GridTile(
+                    child: Container(
+                      child: Image.asset(prod_picure, fit: BoxFit.cover),
+                    ),
+                    footer: Container(
+                      color: Colors.white70,
+                      height: 50,
+                      width: 300,
+                      child: ListTile(
+                        leading: Text(
+                          prod_name,
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 13),
                         ),
-                        footer: Container(
-                          color: Colors.white70,
-                          height: 50,
-                          width: 300,
-                          child: ListTile(
-                            leading: Text(
-                              prod_name,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 13),
-                            ),
-/*
-                            title: Row(
-                              children: <Widget>[
-                                Expanded(
-                                    child: Text(
-                                      "\$${prod_price}",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.bold),
-                                    )),
-                                Expanded(
-                                    child: Text("${prod_oldprice}",
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            decoration: TextDecoration.lineThrough)))
-                              ],
-                            ),
-*/
-                          ),
-                        ),
-                        /*child: Container(
-                          height: 200.0,
-                          width: 200.0,
-                          child: Image.asset(prod_picure, fit: BoxFit.cover),
-                        ),*/
                       ),
-                      /*Positioned(
-                        left: 10.0,
-                        bottom: 10.0,
-                        child: Row(
-                          children: <Widget>[
-                            Column(
-                              children: <Widget>[
-                                Text(
-                                  prod_name,
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                      fontSize: 15.0),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      )*/
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            )));
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }
-
-/*
-
-appBar: AppBar(
-elevation: 0.1,
-backgroundColor: Color(0xFF108CED),
-centerTitle: true,
-title: InkWell(
-//temporal quitar el app
-*/
-/*onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => App()));
-          },*/ /*
-
-child: Text(
-'Swap Trendy',
-style: TextStyle(color: Colors.black),
-),
-),
-actions: <Widget>[
-IconButton(
-icon: Icon(
-Icons.search,
-color: Colors.black,
-),
-onPressed: null),
-IconButton(
-icon: Icon(
-Icons.shopping_cart,
-color: Colors.black,
-),
-onPressed: () => Navigator.push(
-context, MaterialPageRoute(builder: (context) => Cart())),
-)
-//Aqui esta l icono de busqueda q quiero pone abajo en una barra
-//pa eso tngo q aumentar el height del appbar
-],
-iconTheme: IconThemeData(color: Colors.black),
-// el color de los botones puede ponersse en cada iconButton como
-// //atributo del icon o con icontheme pa  sea pa todos
-),*/

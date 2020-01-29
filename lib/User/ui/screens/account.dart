@@ -1,23 +1,22 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:ecomerceapp/User/bloc/bloc_user.dart';
 import 'package:ecomerceapp/User/ui/screens/orders.dart';
 import 'package:ecomerceapp/User/ui/screens/payment_screen.dart';
-import 'package:ecomerceapp/User/ui/widgets/circle_button.dart';
-import 'package:ecomerceapp/temp/login_screen.dart';
+import 'package:ecomerceapp/User/ui/screens/login_screen.dart';
 import 'package:ecomerceapp/widgets/general_button.dart';
 import 'package:ecomerceapp/widgets/gradient_back.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 
 class Account extends StatelessWidget {
   UserBloc userBloc;
-
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
+
     return StreamBuilder(
-      stream: userBloc.authStatus,
+      stream: userBloc.authStatusFirebase,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
@@ -90,46 +89,25 @@ class Account extends StatelessWidget {
               0, MediaQuery.of(context).padding.top + 25, 0, 0),
           child: UserAccountsDrawerHeader(
             accountName: Text(
-              snapshot.data.displayName,
+              snapshot.data.displayName.toString(),
               style: TextStyle(color: Colors.black),
             ),
             accountEmail: Text(
-              snapshot.data.email,
+              snapshot.data.email.toString(),
               style: TextStyle(color: Colors.black),
             ),
             currentAccountPicture: GestureDetector(
-                /*child: CircleAvatar(
+              child: CircleAvatar(
                 backgroundColor: Colors.transparent,
-                //Icon(Icons.person, size: 50.0, color: Colors.black)
-                backgroundImage:
-                    CachedNetworkImageProvider(snapshot.data.photoUrl),
+                backgroundImage: CachedNetworkImageProvider(
+                    snapshot.data.photoUrl.toString()),
                 //NetworkImage(snapshot.data.photoUrl),
-              ),*/
-                ),
+              ),
+            ),
             decoration: BoxDecoration(color: Colors.transparent),
           ),
         )
       ],
-/*
-      UserAccountsDrawerHeader(
-        accountName: Text(
-          snapshot.data.displayName,
-          style: TextStyle(color: Colors.black),
-        ),
-        accountEmail: Text(
-          snapshot.data.email,
-          style: TextStyle(color: Colors.black),
-        ),
-        currentAccountPicture: GestureDetector(
-          child: CircleAvatar(
-            backgroundColor: Colors.grey,
-            //Icon(Icons.person, size: 50.0, color: Colors.black)
-            backgroundImage: NetworkImage(snapshot.data.photoUrl),
-          ),
-        ),
-        //decoration: BoxDecoration(color: Color(0xFF108CED)),
-      )
-*/
     );
   }
 
@@ -149,13 +127,6 @@ class Account extends StatelessWidget {
             leading: Icon(Icons.local_shipping, color: Color(0xFF108CED)),
           ),
         ),
-        /*InkWell(
-          onTap: () {},
-          child: ListTile(
-            title: Text('Favorites'),
-            leading: Icon(Icons.favorite, color: Color(0xFF108CED)),
-          ),
-        ),*/
         InkWell(
           onTap: () {
             Navigator.of(context)

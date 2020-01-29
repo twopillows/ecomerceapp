@@ -66,18 +66,13 @@ class Orders extends StatelessWidget {
             ],
           ),
         ),
-        /*Container(
-          padding: EdgeInsets.all(16),
-          margin: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 46),
-          child: Center(child: Text("🚚FREE SHIPPING🚚"),),
-        ),*/
       ],
     );
   }
 
   Widget _ordersList(BuildContext context) {
     return StreamBuilder(
-      stream: userBloc.courseDocStream,
+      stream: userBloc.currentUserStream,
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           var userData = snapshot.data.data;
@@ -99,18 +94,7 @@ class Orders extends StatelessWidget {
                             actionPane: SlidableScrollActionPane(),
                             actionExtentRatio: 0.25,
                             child: _buildProductCard(myOrders, index),
-                            secondaryActions: <Widget>[
-                              /*IconSlideAction(
-                                caption: 'Delete',
-                                color: Colors.red,
-                                icon: Icons.delete,
-                                onTap: () {
-                                  userBloc
-                                      .eliminarDeFavoritos(sections[index]);
-                                  print("delete from favorites");
-                                },
-                              ),*/
-                            ],
+                            secondaryActions: <Widget>[],
                           );
                         },
                       ),

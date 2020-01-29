@@ -11,34 +11,17 @@ class CloudFirestoreRepository {
   void updateUserData(User user) =>
       _cloud_firestore_api.updateUserDataFirestore(user);
 
-  //Future<void> updateFavoritesProductData(Product product)async=>
-  //  _cloud_firestore_api.updateFavoritesProductData(product);
+  ///ADD & DELETE TO/FROM FAVORITES
+  void subirProductosFavorito(Product productoAgregar) =>
+      _cloud_firestore_api.subirProductosFavorito(productoAgregar);
 
-  //Future<void> updateFavoritesData(Product product)async => _cloud_firestore_api.updateFavoritesData(product);
-
-  ///test
-  void obtenerListaProductosActual() =>
-      _cloud_firestore_api.obtenerListaProductosActual();
-
-  ///
-  //este es para agregar el producto a favorito
-  void subirProductos(Product productoAgregar) =>
-      _cloud_firestore_api.subirProductos(productoAgregar);
-
-  //este es para subir los productos ual carrito
-  void subirProductosCarrito(Product productoAgregar) =>
-      _cloud_firestore_api.subirProductosCarrito(productoAgregar);
-
-  //este va a eliminar un favorito
   void eliminarDeFavoritos(var producto) =>
       _cloud_firestore_api.eliminarDeFavoritos(producto);
 
-  //este va a eliminar del carrito
+  ///ADD & DELETE TO/FROM CART
+  void subirProductosCarrito(Product productoAgregar) =>
+      _cloud_firestore_api.subirProductosCarrito(productoAgregar);
+
   void eliminarProductoCarrito(var producto) =>
       _cloud_firestore_api.eliminarProductoCarrito(producto);
-
-  ///este es el q va a construir los products a partir de todos los usuarios
-
-  //void buildPlaces(List<DocumentSnapshot> usersListSnapshot) => _cloud_firestore_api.buildPlaces(usersListSnapshot);
-
 }

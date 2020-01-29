@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:ecomerceapp/tienda_principal_cupertino.dart';
 
 class FirebaseAuthAPI {
@@ -11,7 +10,8 @@ class FirebaseAuthAPI {
   final GoogleSignIn googleSignIn = GoogleSignIn();
   final Firestore _firestore = Firestore.instance;
 
-  Future<FirebaseUser> signIn() async {
+  ///LOGIN, SIGNUP, SIGNOUT, UPDATE DATA
+  Future<FirebaseUser> signInGoogle() async {
     GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
     GoogleSignInAuthentication gSA = await googleSignInAccount.authentication;
 
@@ -22,60 +22,42 @@ class FirebaseAuthAPI {
     return user;
   }
 
-  ///aqui tngo q hacer el login con email and password
-  void handleSignInEmail(String email, String password, BuildContext context) {
+  void signInEmail(String email, String password, BuildContext context) {
     _auth
         .signInWithEmailAndPassword(email: email, password: password)
-        .then((currentUser) => _firestore
-            .collection("users")
-            .document(currentUser.uid)
-            .get()
-            .then((DocumentSnapshot result) => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => TiendaPrincipalCupertino(
-                          uid: currentUser.uid,
-                        ))))
-            .catchError((err) => print(err)))
-        .catchError((err) => print(err));
+        .then((currentUser) {
+      print(currentUser.uid.toString());
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TiendaPrincipalCupertino(
+                    uid: currentUser.uid,
+                  )));
+    });
   }
 
-  ///aqui para registrar al usuario con wemail y contrasenna
-  Future<FirebaseUser> signUpWithEmailPassword(email, password) async {
-    /*DocumentReference ref = _firestore.collection("users").document(user.uid);
+  Future<FirebaseUser> signUpWithEmailPassword(
+      String name, String email, String password, BuildContext context) async {
+    await _auth
+        .createUserWithEmailAndPassword(
+      email: email,
+      password: password,
+    )
+        .then((result) {
+      _firestore.collection('users').document(result.uid).setData({
+        'email': email,
+        'uid': result.uid,
+        'name': name,
+      });
 
-
-    _auth.createUserWithEmailAndPassword(email: email, password: password)
-        .then((currentUser) => {
-          _firestore
-      .collection("users")
-      .document(currentUser.uid)
-      .setData(data)
-    });*/
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) => TiendaPrincipalCupertino(
+                    uid: result.uid,
+                  )));
+    });
   }
-
-  /*try {
-      FirebaseUser user = await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
-      assert(user != null);
-      assert(await user.getIdToken() != null);
-      return user;
-    } catch (e) {
-      print(e);
-      return null;
-    }*/
-
-  /*Future<FirebaseUser> handleSignUp(email, password) async {
-
-    AuthResult result = await auth.createUserWithEmailAndPassword(email: email, password: password);
-    final FirebaseUser user = result.user;
-
-    assert (user != null);
-    assert (await user.getIdToken() != null);
-
-    return user;
-
-  }*/
 
   sign_Out() async {
     await _auth.signOut().then((onValue) => print("el usuario cerro secion"));

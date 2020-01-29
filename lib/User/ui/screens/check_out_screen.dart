@@ -1,9 +1,6 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:ecomerceapp/widgets/custom_appbar_text.dart';
 import 'package:ecomerceapp/widgets/gradient_back.dart';
-import 'package:ecomerceapp/widgets/text_input.dart';
 
 class CheckOutScreen extends StatefulWidget {
   @override
@@ -46,15 +43,6 @@ class _CheckOutScreen extends State<CheckOutScreen> {
                 padding: EdgeInsets.only(top: 45.0, left: 20.0, right: 10.0),
                 child: TitleHeader(title: "Check Out Page"),
               ))
-              /*Container(
-                padding: EdgeInsets.only(top: 25.0, left: 5.0),
-                child: SizedBox(
-
-                  height: 45.0,
-                  width: 45.0,
-                  child: Text("Swap Trendy"),
-                ),
-              ),*/
             ],
           ),
           //TextInput(controller: ,),
@@ -63,5 +51,3 @@ class _CheckOutScreen extends State<CheckOutScreen> {
     );
   }
 }
-
-// aqui tngo q pone

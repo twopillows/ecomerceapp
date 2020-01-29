@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
-import 'package:ecomerceapp/Product/model/product.dart';
 import 'package:ecomerceapp/User/bloc/bloc_user.dart';
 import 'package:ecomerceapp/Product/ui/screens/product_details.dart';
 
@@ -58,7 +57,7 @@ class _Cart_ProductsState extends State<Cart_Products> {
     // TODO: implement build
     return StreamBuilder<DocumentSnapshot>(
       //este stream da el usuario actual la info completa
-      stream: userBloc.courseDocStream,
+      stream: userBloc.currentUserStream,
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           var courseDocument = snapshot.data.data;

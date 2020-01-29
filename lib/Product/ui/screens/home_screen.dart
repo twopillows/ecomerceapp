@@ -19,7 +19,6 @@ class _HomeScreenState extends State<HomeScreen> {
     SizeConfig().init(context);
     return SafeArea(
       child: Scaffold(
-        //resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Container(
             color: Colors.white,
@@ -28,7 +27,6 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 Header(uid: widget.uid),
-
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
@@ -37,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: ImageCarousel(),
                     ),
                     Padding(
-                      //padding: EdgeInsets.all(8.0),
                       padding: EdgeInsets.only(top: 4),
                       child: Text(' Pet Products',
                           style: TextStyle(
@@ -50,23 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
                               height: SizeConfig.safeBlockVertical * 26,
-                              //height: 180,
                               width: SizeConfig.safeBlockHorizontal * 26,
-                              //width: 180,
-                              //color: Colors.yellow,
                               child: Card(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(15.0),
                                   ),
                                   child: Material(
-                                    //elevation: 0.0,
-                                    //borderRadius: BorderRadius.all(Radius.circular(100.0)),
                                     child: InkWell(
-                                      //borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                       onTap: () => Navigator.of(context).push(
-                                          //aqui va product details cdo se da clicks ProductDetails()
                                           MaterialPageRoute(
-                                              //==========================AQUIIIII VA PORODCUT LIST==============
                                               builder: (context) =>
                                                   ProductList())),
                                       child: ClipRRect(
@@ -91,9 +80,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         offset:
                                                             Offset(0.0, 7.0))
                                                   ]),
-                                              /*child: Image.asset(
-                                            "images/images/icon/perros.png",
-                                            fit: BoxFit.cover),*/
                                             ),
                                             Positioned(
                                               left: 10.0,
@@ -127,23 +113,15 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Container(
-                              //height: 180,
-                              //width: 180,
                               height: SizeConfig.safeBlockVertical * 26,
-                              //height: 180,
                               width: SizeConfig.safeBlockHorizontal * 26,
-                              //color: Colors.yellow,
                               child: Card(
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
                                 ),
                                 child: Material(
-                                  //elevation: 0.0,
-                                  //borderRadius: BorderRadius.all(Radius.circular(100.0)),
                                   child: InkWell(
-                                    //borderRadius: BorderRadius.all(Radius.circular(30.0)),
                                     onTap: () => Navigator.of(context).push(
-                                        //aqui va product details cdo se da clicks ProductDetails()
                                         MaterialPageRoute(
                                             builder: (context) =>
                                                 ProductList())),
@@ -168,9 +146,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       blurRadius: 15.0,
                                                       offset: Offset(0.0, 7.0))
                                                 ]),
-                                            /*child: Image.asset(
-                                            "images/images/icon/perros.png",
-                                            fit: BoxFit.cover),*/
                                           ),
                                           Positioned(
                                             left: 10.0,
@@ -207,9 +182,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
                       child: Container(
                         height: SizeConfig.safeBlockVertical * 15,
-                        //height: 180,
-                        //width: SizeConfig.blockSizeHorizontal * 26,
-                        //height: 90.0,
                         child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0)),
@@ -224,10 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 children: <Widget>[
                                   Container(
                                     height: SizeConfig.safeBlockVertical * 15,
-                                    //height: 110.0,
                                     width: SizeConfig.safeBlockHorizontal * 95,
-
-                                    //width: 390.0,
                                     decoration: BoxDecoration(
                                         image: DecorationImage(
                                             fit: BoxFit.cover,
@@ -241,9 +210,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                               blurRadius: 15.0,
                                               offset: Offset(0.0, 7.0))
                                         ]),
-                                    /*child: Image.asset(
-                                            "images/images/icon/perros.png",
-                                            fit: BoxFit.cover),*/
                                   ),
                                   Positioned(
                                     left: 140.0,
@@ -273,7 +239,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     )
                   ],
                 ),
-                //aqui va el home como tal
               ],
             ),
           ),

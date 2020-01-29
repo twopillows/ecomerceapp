@@ -1,30 +1,23 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:ecomerceapp/User/bloc/bloc_user.dart';
-import 'package:ecomerceapp/User/model/user.dart';
-import 'package:ecomerceapp/tienda_principal_cupertino.dart';
-import 'package:ecomerceapp/widgets/general_button.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegistrerScreen extends StatefulWidget {
   @override
-  _LoginScreen createState() => _LoginScreen();
+  _RegisterScreen createState() => _RegisterScreen();
 }
 
-class _LoginScreen extends State<LoginScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final _scaffoldKey = GlobalKey<ScaffoldState>();
-  String _email, _password;
-  bool _obscureText = true;
+class _RegisterScreen extends State<RegistrerScreen> {
   UserBloc userBloc;
+  final _formKey = GlobalKey<FormState>();
+  String _username, _email, _password;
+  bool _obscureText = true;
 
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
     return Scaffold(
-      key: _scaffoldKey,
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("Register"),
       ),
       body: Container(
         child: Padding(
@@ -36,11 +29,10 @@ class _LoginScreen extends State<LoginScreen> {
                 child: Column(
                   children: <Widget>[
                     _showTitle(),
+                    _showUsername(),
                     _showEmail(),
                     _showPassword(),
                     _showFormSection(),
-                    stream(),
-                    //_signinGoogle(),
                   ],
                 ),
               ),
@@ -53,8 +45,26 @@ class _LoginScreen extends State<LoginScreen> {
 
   Widget _showTitle() {
     return Text(
-      "Login with Email & Password",
+      "Register",
       style: Theme.of(context).textTheme.headline,
+    );
+  }
+
+  Widget _showUsername() {
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: TextFormField(
+        onSaved: (value) => _username = value,
+        validator: (value) => value.length < 6 ? 'Ivalid Username' : null,
+        decoration: InputDecoration(
+            labelText: 'Username',
+            border: OutlineInputBorder(),
+            hintText: 'Enter username, min length 6',
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.blue[900],
+            )),
+      ),
     );
   }
 
@@ -81,7 +91,7 @@ class _LoginScreen extends State<LoginScreen> {
       padding: const EdgeInsets.only(top: 20),
       child: TextFormField(
         onSaved: (value) => _password = value,
-        validator: (value) => value.length < 4 ? 'Password too short' : null,
+        //validator: (value) => value.length < 4 ? 'Password too short' : null,
         obscureText: _obscureText,
         decoration: InputDecoration(
             suffixIcon: GestureDetector(
@@ -117,20 +127,16 @@ class _LoginScreen extends State<LoginScreen> {
                   .body1
                   .copyWith(color: Colors.black),
             ),
-            onPressed: () => Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                    builder: (context) =>
-                        TiendaPrincipalCupertino())), //userBloc.handleSignInEmail(_email, _password, context),
+            onPressed: () => userBloc.signUpWithEmailPassword(
+                '3463u7747', 'pepeep@gmail.com', 'khfsdfkfd', context),
             //onPressed: () => _validateForm(),
             elevation: 8.0,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10))),
           ),
           FlatButton(
-            child: Text('New User? Register'),
-            onPressed: () =>
-                Navigator.pushReplacementNamed(context, '/register'),
+            child: Text('Already have an account? Log In'),
+            onPressed: () => Navigator.pushReplacementNamed(context, '/login'),
           ),
         ],
       ),
@@ -142,64 +148,7 @@ class _LoginScreen extends State<LoginScreen> {
 
     if (_form.validate()) {
       _form.save();
-
-      ///sign in
-
-      _scaffoldKey.currentState.showSnackBar(_showSnackBar());
+      print('user is:$_username, AND password: $_password');
     }
-  }
-
-  void _changeObscureState() {
-    setState(() {
-      _obscureText = !_obscureText;
-    });
-  }
-
-  Widget _showSnackBar() {
-    return SnackBar(content: Text("Logged in"));
-  }
-
-  Widget stream() {
-    return StreamBuilder(
-      stream: userBloc.authStatus,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
-        if (!snapshot.hasData || snapshot.hasError) {
-          return _signinGoogle();
-        } else {
-          //return signInGoogleUI();
-          return TiendaPrincipalCupertino();
-        }
-      },
-    );
-  }
-
-  Widget _signinGoogle() {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          GeneralButton(
-              "images/iconos/google.jpg", 50, 300, "Sign In With Google", () {
-            userBloc.signOut();
-            userBloc.signIn().then((FirebaseUser user) {
-              userBloc.updateData(User(
-                uid: user.uid,
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoUrl,
-                myOrders: null,
-                //myFavoriteProducts: null,
-                //myCart: null
-              ));
-              Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => TiendaPrincipalCupertino()));
-            });
-          }),
-        ],
-      ),
-    );
   }
 }

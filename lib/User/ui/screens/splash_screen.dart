@@ -37,7 +37,6 @@ class _SplashScreenState extends State<SplashScreen> {
                   }
               })
           .catchError((err) => print(err));
-
       super.initState();
     });
   }
@@ -45,6 +44,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
-    return Container();
+    return Container(
+      color: Colors.red,
+    );
   }
 }
