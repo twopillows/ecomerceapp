@@ -21,7 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
                   {Navigator.pushReplacementNamed(context, "/login")}
                 else
                   {
-                    Firestore.instance
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => TiendaPrincipalCupertino(
+                                uid: currentUser.uid))),
+                    /*Firestore.instance
                         .collection("users")
                         .document(currentUser.uid)
                         .get()
@@ -33,7 +38,7 @@ class _SplashScreenState extends State<SplashScreen> {
                                         TiendaPrincipalCupertino(
                                           uid: currentUser.uid,
                                         ))))
-                        .catchError((err) => print(err))
+                        .catchError((err) => print(err))*/
                   }
               })
           .catchError((err) => print(err));

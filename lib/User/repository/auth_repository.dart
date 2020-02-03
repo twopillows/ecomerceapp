@@ -9,7 +9,8 @@ class Auth_Repository {
 
   signOut() => _firebaseAuthAPI.sign_Out();
 
-  void signInEmail(String email, String password, BuildContext context) =>
+  Future<FirebaseUser> signInEmail(
+          String email, String password, BuildContext context) =>
       _firebaseAuthAPI.signInEmail(email, password, context);
 
   Future<FirebaseUser> signUpWithEmailPassword(

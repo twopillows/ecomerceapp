@@ -17,6 +17,10 @@ class UserBloc implements Bloc {
   final _cloud_firestore_repository = CloudFirestoreRepository();
   final _firebase_storage_repository = FirebaseStorageRepository();
 
+  ///USER DOC REF
+  DocumentReference userDocRef(String uid) =>
+      _cloud_firestore_repository.userDocRef(uid);
+
   Future<FirebaseUser> get currentUser => FirebaseAuth.instance.currentUser();
 
   //////////////////////////////////
@@ -24,16 +28,17 @@ class UserBloc implements Bloc {
   Stream<FirebaseUser> get authStatusFirebase =>
       FirebaseAuth.instance.onAuthStateChanged;
 
-  Stream<DocumentSnapshot> get currentUserStream => Firestore.instance
-      .collection('users')
-      .document(
-          //name)
-          'CP3iWB9nFFS3OaUsSbsxOZU38Hz2') // aqui va el nombre del usuario actual
-      .snapshots();
+  Stream<DocumentSnapshot> currentUserStream(String uid) {
+    return Firestore.instance
+        .collection('users')
+        .document(uid) // aqui va el nombre del usuario actual
+        .snapshots();
+  }
 
   ////////////////////////////////////////
   ///LOGIN, SIGNUP, SIGNOUT, UPDATE DATA
-  signInEmail(String email, String password, BuildContext context) =>
+  Future<FirebaseUser> signInEmail(
+          String email, String password, BuildContext context) =>
       _auth_repository.signInEmail(email, password, context);
 
   Future<FirebaseUser> signInGoogle() => _auth_repository.signInGoogle();
@@ -44,7 +49,8 @@ class UserBloc implements Bloc {
 
   signOut() => _auth_repository.signOut();
 
-  updateUserData(User user) => _cloud_firestore_repository.updateUserData(user);
+  updateUserData(User user, bool exists) =>
+      _cloud_firestore_repository.updateUserData(user, exists);
 
   //////////////////////////////////
   ///ADD & DELETE TO/FROM FAVORITES

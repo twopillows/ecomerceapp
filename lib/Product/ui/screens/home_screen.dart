@@ -54,10 +54,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   child: Material(
                                     child: InkWell(
-                                      onTap: () => Navigator.of(context).push(
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ProductList())),
+                                      onTap: () => Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                              builder: (context) => ProductList(
+                                                    uid: widget.uid,
+                                                  ))),
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(15.0)),

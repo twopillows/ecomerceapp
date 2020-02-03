@@ -12,7 +12,7 @@ class Orders extends StatelessWidget {
     userBloc = BlocProvider.of<UserBloc>(context);
     return Stack(
       children: <Widget>[
-        _ordersList(context),
+        //_ordersList(context),
       ],
     );
   }
@@ -70,7 +70,7 @@ class Orders extends StatelessWidget {
     );
   }
 
-  Widget _ordersList(BuildContext context) {
+  /*Widget _ordersList(BuildContext context) {
     return StreamBuilder(
       stream: userBloc.currentUserStream,
       builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
@@ -117,7 +117,7 @@ class Orders extends StatelessWidget {
         }
       },
     );
-  }
+  }*/
 
   Widget _buildProductCard(var sections, int index) {
     return Container();

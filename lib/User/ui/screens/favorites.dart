@@ -8,6 +8,10 @@ import 'package:ecomerceapp/widgets/gradient_back.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 class Favorites extends StatefulWidget {
+  final String uid;
+
+  Favorites({this.uid});
+
   @override
   _FavoritesState createState() => _FavoritesState();
 }
@@ -20,7 +24,7 @@ class _FavoritesState extends State<Favorites> {
     userBloc = BlocProvider.of<UserBloc>(context);
 
     return StreamBuilder<DocumentSnapshot>(
-        stream: userBloc.currentUserStream,
+        stream: userBloc.currentUserStream(widget.uid),
         builder:
             (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
           if (snapshot.connectionState == ConnectionState.active) {

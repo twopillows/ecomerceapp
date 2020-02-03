@@ -8,8 +8,13 @@ import 'dart:async';
 class CloudFirestoreRepository {
   final _cloud_firestore_api = CloudFirestoreAPI();
 
-  void updateUserData(User user) =>
-      _cloud_firestore_api.updateUserDataFirestore(user);
+  ///USER DOC REF
+  DocumentReference userDocRef(String uid) =>
+      _cloud_firestore_api.userDocRef(uid);
+
+  ///UPDATE USER DATA
+  void updateUserData(User user, bool exists) =>
+      _cloud_firestore_api.updateUserDataFirestore(user, exists);
 
   ///ADD & DELETE TO/FROM FAVORITES
   void subirProductosFavorito(Product productoAgregar) =>

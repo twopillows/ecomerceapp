@@ -32,7 +32,10 @@ class _CartState extends State<Cart> {
             //aqui va el header
             _headerProductDetails(context),
 
-            Cart_Products(),
+            Cart_Products(
+              uid: widget.uid,
+            ),
+
             Row(
               children: <Widget>[
                 Expanded(
@@ -67,15 +70,10 @@ class _CartState extends State<Cart> {
                   child: Padding(
                     padding: const EdgeInsets.fromLTRB(5, 0, 5, 0),
                     child: StreamBuilder(
-                      stream: Firestore.instance
-                          .collection('users')
-                          .document(
-                              //name)
-                              widget
-                                  .uid) // aqui va el nombre del usuario actual
-                          .snapshots(),
-                      builder:
-                          (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                      stream: userBloc.currentUserStream(widget.uid),
+                      //Firestore.instance.collection('users').document(widget.uid).snapshots(), // aqui va el nombre del usuario actual
+                      builder: (BuildContext context,
+                          AsyncSnapshot<DocumentSnapshot> snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.active) {
                           var courseDocument = snapshot.data.data;
@@ -146,11 +144,13 @@ class _CartState extends State<Cart> {
                 //style: TextStyle(color: Colors.white, fontSize: 25),
               ),
               StreamBuilder<DocumentSnapshot>(
-                  stream: userBloc.currentUserStream,
+                  stream: userBloc.currentUserStream(widget.uid),
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.active) {
-                      var courseDocument = snapshot.data.data;
+                      var courseDocument =
+                          snapshot.data.data; //snapshot.data.data
                       var sections = courseDocument['myCart'];
+                      //print(sections.toString());
 
                       return BadgeIconButton(
                         //itemCount: 3,

@@ -8,6 +8,10 @@ import 'package:ecomerceapp/User/ui/screens/cart.dart';
 import 'package:ecomerceapp/widgets/size_config.dart';
 
 class ProductList extends StatefulWidget {
+  final String uid;
+
+  ProductList({this.uid});
+
   @override
   _ProductListState createState() => _ProductListState();
 }
@@ -66,6 +70,7 @@ class _ProductListState extends State<ProductList> {
           //aqui va product details cdo se da clicks ProductDetails()
           MaterialPageRoute(
               builder: (context) => ProductDetails(
+                    uid: widget.uid,
                     //aqui estoy diciendo de q producto son los datos
                     //para generar la productdetails page corespondint
                     product_detail_name: document['name'],
@@ -222,7 +227,7 @@ class _ProductListState extends State<ProductList> {
                 ),
 
                 StreamBuilder<DocumentSnapshot>(
-                    stream: userBloc.currentUserStream,
+                    stream: userBloc.currentUserStream(widget.uid),
                     builder:
                         (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                       if (snapshot.connectionState == ConnectionState.active) {

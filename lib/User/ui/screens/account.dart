@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -9,8 +10,18 @@ import 'package:ecomerceapp/User/ui/screens/login_screen.dart';
 import 'package:ecomerceapp/widgets/general_button.dart';
 import 'package:ecomerceapp/widgets/gradient_back.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
+  final String uid;
+
+  Account({this.uid});
+
+  @override
+  _AccountState createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
   UserBloc userBloc;
+
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
@@ -87,24 +98,38 @@ class Account extends StatelessWidget {
         Padding(
           padding: EdgeInsets.fromLTRB(
               0, MediaQuery.of(context).padding.top + 25, 0, 0),
-          child: UserAccountsDrawerHeader(
-            accountName: Text(
-              snapshot.data.displayName.toString(),
-              style: TextStyle(color: Colors.black),
-            ),
-            accountEmail: Text(
-              snapshot.data.email.toString(),
-              style: TextStyle(color: Colors.black),
-            ),
-            currentAccountPicture: GestureDetector(
-              child: CircleAvatar(
-                backgroundColor: Colors.transparent,
-                backgroundImage: CachedNetworkImageProvider(
-                    snapshot.data.photoUrl.toString()),
-                //NetworkImage(snapshot.data.photoUrl),
-              ),
-            ),
-            decoration: BoxDecoration(color: Colors.transparent),
+          child: StreamBuilder<DocumentSnapshot>(
+            stream: userBloc.currentUserStream(widget.uid),
+            builder: (context, AsyncSnapshot snapshot) {
+              var userInfo = snapshot.data.data;
+              var name = userInfo['name'];
+              var email = userInfo['email'];
+              var url = userInfo['photoURL'];
+              //print('ACCOUNT STREAM este' + url.toString());
+
+              return UserAccountsDrawerHeader(
+                accountName: Text(
+                  name.toString(),
+                  style: TextStyle(color: Colors.black),
+                ),
+                accountEmail: Text(
+                  email.toString(),
+                  style: TextStyle(color: Colors.black),
+                ),
+                currentAccountPicture: GestureDetector(
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+
+                    ///Here comes the user photo
+                    backgroundImage: (url == null)
+                        ? AssetImage('images/images/products_LA/1.jpeg')
+                        : CachedNetworkImageProvider(url.toString()),
+                    //NetworkImage(snapshot.data.photoUrl),
+                  ),
+                ),
+                decoration: BoxDecoration(color: Colors.transparent),
+              );
+            },
           ),
         )
       ],
@@ -195,7 +220,10 @@ class Account extends StatelessWidget {
           width: 150,
           child: GeneralButton("images/iconos/google.jpg", 50, 300, "Sign Out",
               () {
-            showCupertinoDialog(
+            userBloc.signOut();
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
+            /*showCupertinoDialog(
               context: context,
               builder: (_) => CupertinoAlertDialog(
                 title: Text("Sign Out"),
@@ -211,18 +239,17 @@ class Account extends StatelessWidget {
                     child: Text("Yes"),
                     onPressed: () => {
                       userBloc.signOut(),
+                      //Navigator.of(context, rootNavigator: true).pop('/login'),
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => LoginScreen())),
-                      //Navigator.of(context, rootNavigator: true).pop('/login'),
                     },
+                    //isDestructiveAction: true,
                   ),
                 ],
               ),
-            );
-
-            //userBloc.signOut();
+            );*/
           }),
         )
       ],

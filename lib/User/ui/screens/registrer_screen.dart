@@ -127,8 +127,9 @@ class _RegisterScreen extends State<RegistrerScreen> {
                   .body1
                   .copyWith(color: Colors.black),
             ),
-            onPressed: () => userBloc.signUpWithEmailPassword(
-                '3463u7747', 'pepeep@gmail.com', 'khfsdfkfd', context),
+            onPressed: () => _validateForm(),
+            //userBloc.signUpWithEmailPassword(
+            //_username, _email, _password, context),
             //onPressed: () => _validateForm(),
             elevation: 8.0,
             shape: RoundedRectangleBorder(
@@ -149,6 +150,7 @@ class _RegisterScreen extends State<RegistrerScreen> {
     if (_form.validate()) {
       _form.save();
       print('user is:$_username, AND password: $_password');
+      userBloc.signUpWithEmailPassword(_username, _email, _password, context);
     }
   }
 }

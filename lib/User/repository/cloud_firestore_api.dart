@@ -11,19 +11,37 @@ class CloudFirestoreAPI {
   Firestore _db = Firestore.instance;
   FirebaseAuth _auth = FirebaseAuth.instance;
 
+  ///Return userDocumentReference
+  DocumentReference userDocRef(String uid) {
+    return _db.collection(USERS).document(uid);
+  }
+
   ///UPDATE USER DATA
-  void updateUserDataFirestore(User user) async {
+  void updateUserDataFirestore(User user, bool exists) async {
     DocumentReference ref = _db.collection(USERS).document(user.uid);
-    return ref.setData({
-      'uid': user.uid,
-      'name': user.name,
-      'email': user.email,
-      'photoURL': user.photoURL,
-      'myOrders': user.myOrders,
-      //'myFavoriteProducts8': user.myFavoriteProducts,
-      //'myCart': user.myCart,
-      'lastSignIn': DateTime.now()
-    }, merge: true);
+    if (exists) {
+      return ref.updateData({
+        'uid': user.uid,
+        'name': user.name,
+        'email': user.email,
+        'photoURL': user.photoURL,
+        'myOrders': user.myOrders,
+        //'myFavoriteProducts8': user.myFavoriteProducts,
+        //'myCart': user.myCart,
+        'lastSignIn': DateTime.now()
+      });
+    } else {
+      return ref.setData({
+        'uid': user.uid,
+        'name': user.name,
+        'email': user.email,
+        'photoURL': user.photoURL,
+        'myOrders': user.myOrders,
+        //'myFavoriteProducts8': user.myFavoriteProducts,
+        //'myCart': user.myCart,
+        'lastSignIn': DateTime.now()
+      });
+    }
   }
 
   ///ADD FAVORITE

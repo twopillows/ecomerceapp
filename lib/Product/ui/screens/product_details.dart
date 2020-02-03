@@ -10,6 +10,7 @@ import 'package:ecomerceapp/widgets/custom_appbar_text.dart';
 import 'package:ecomerceapp/widgets/size_config.dart';
 
 class ProductDetails extends StatefulWidget {
+  final String uid;
   final String product_detail_name;
   final double product_detail_price;
   final String product_detail_old_price;
@@ -122,7 +123,8 @@ class ProductDetails extends StatefulWidget {
       this.product_detail_price,
       this.product_detail_old_price,
       this.product_detail_picture,
-      this.numero});
+      this.numero,
+      this.uid});
   @override
   _ProductDetailsState createState() => _ProductDetailsState();
 }
@@ -512,7 +514,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                 //style: TextStyle(color: Colors.white, fontSize: 25),
               ),
               StreamBuilder<DocumentSnapshot>(
-                  stream: userBloc.currentUserStream,
+                  stream: userBloc.currentUserStream(widget.uid),
                   builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
                     if (snapshot.connectionState == ConnectionState.active) {
                       var courseDocument = snapshot.data.data;
@@ -527,8 +529,10 @@ class _ProductDetailsState extends State<ProductDetails> {
                           size: 25,
                         ),
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Cart()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Cart(uid: widget.uid)));
                         },
                       );
                     } else {

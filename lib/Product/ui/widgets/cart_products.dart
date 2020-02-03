@@ -6,6 +6,10 @@ import 'package:ecomerceapp/User/bloc/bloc_user.dart';
 import 'package:ecomerceapp/Product/ui/screens/product_details.dart';
 
 class Cart_Products extends StatefulWidget {
+  final String uid;
+
+  Cart_Products({this.uid});
+
   @override
   _Cart_ProductsState createState() => _Cart_ProductsState();
 }
@@ -54,15 +58,14 @@ class _Cart_ProductsState extends State<Cart_Products> {
   @override
   Widget build(BuildContext context) {
     userBloc = BlocProvider.of<UserBloc>(context);
-    // TODO: implement build
     return StreamBuilder<DocumentSnapshot>(
-      //este stream da el usuario actual la info completa
-      stream: userBloc.currentUserStream,
-      builder: (context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+      stream: userBloc.currentUserStream(widget.uid),
+      builder:
+          (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
         if (snapshot.connectionState == ConnectionState.active) {
           var courseDocument = snapshot.data.data;
           var sections = courseDocument['myCart'];
-          //List<Product> temp = sections as List<Product>;
+
           return Expanded(
             child: SizedBox(
               child: ListView.builder(
@@ -118,31 +121,7 @@ class _Cart_ProductsState extends State<Cart_Products> {
       },
     );
   }
-
-/*  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: Products_info.length,
-        itemBuilder: (context, index) {
-          return Single_Cart_Product(
-              cart_product_name: Products_info[index]["name"],
-              cart_product_picture: Products_info[index]["picture"],
-              cart_product_price: Products_info[index]["price"],
-              cart_product_numero: Products_info[index]["numero"],
-              cart_product_size: Products_info[index]["size"],
-              cart_product_color: Products_info[index]["color"],
-              cart_product_qty: Products_info[index]["qty"]);
-        });
-  }*/
 }
-
-/*cart_product_name: Products_info[index]["name"],
-            cart_product_picture: Products_info[index]["picture"],
-            cart_product_price: Products_info[index]["price"],
-            cart_product_numero: Products_info[index]["numero"],
-            cart_product_size: Products_info[index]["size"],
-            cart_product_color: Products_info[index]["color"],
-            cart_product_qty: Products_info[index]["qty"],*/
 
 class Single_Cart_Product extends StatelessWidget {
   final String cart_product_name;
@@ -297,10 +276,4 @@ class Single_Cart_Product extends StatelessWidget {
       ),
     );
   }
-
-/*  void addQty(){
-    int cant = cart_product_qty;
-    cant ++;
-    cant = cart_product_qty;
-  }*/
 }

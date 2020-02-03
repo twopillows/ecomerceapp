@@ -22,10 +22,13 @@ class FirebaseAuthAPI {
     return user;
   }
 
-  void signInEmail(String email, String password, BuildContext context) {
-    _auth
+  Future<FirebaseUser> signInEmail(
+      String email, String password, BuildContext context) async {
+    FirebaseUser user;
+    await _auth
         .signInWithEmailAndPassword(email: email, password: password)
-        .then((currentUser) {
+        .then((FirebaseUser currentUser) {
+      user = currentUser;
       print(currentUser.uid.toString());
       Navigator.pushReplacement(
           context,
@@ -34,6 +37,7 @@ class FirebaseAuthAPI {
                     uid: currentUser.uid,
                   )));
     });
+    return user;
   }
 
   Future<FirebaseUser> signUpWithEmailPassword(
@@ -43,11 +47,16 @@ class FirebaseAuthAPI {
       email: email,
       password: password,
     )
-        .then((result) {
+        .then((FirebaseUser result) {
       _firestore.collection('users').document(result.uid).setData({
         'email': email,
         'uid': result.uid,
         'name': name,
+        'photoURL': result.photoUrl,
+        'myOrders': null,
+        'lastSignIn': DateTime.now(),
+        //myFavoriteProducts: null,
+        //myCart: null
       });
 
       Navigator.pushReplacement(

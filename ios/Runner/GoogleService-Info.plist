@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:778745882762:ios:ef5058d618a77f00b6a573</string>
+	<string>1:778745882762:ios:ef1ac5b0293ae7c7b6a573</string>
 	<key>DATABASE_URL</key>
 	<string>https://swaptrendymac.firebaseio.com</string>
 </dict>

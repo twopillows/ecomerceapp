@@ -57,7 +57,7 @@ class _TiendaPrincipalCupertinoState extends State<TiendaPrincipalCupertino> {
             case 1:
               return CupertinoTabView(
                 builder: (BuildContext context) => BlocProvider(
-                  child: Favorites(),
+                  child: Favorites(uid: widget.uid),
                   bloc: UserBloc(),
                 ),
               );
@@ -65,7 +65,7 @@ class _TiendaPrincipalCupertinoState extends State<TiendaPrincipalCupertino> {
               return CupertinoTabView(
                 builder: (BuildContext context) => BlocProvider(
                   bloc: UserBloc(),
-                  child: Account(),
+                  child: Account(uid: widget.uid),
                 ),
               );
           }

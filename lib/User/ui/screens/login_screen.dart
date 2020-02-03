@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:ecomerceapp/User/repository/cloud_firestore_api.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
@@ -119,9 +120,10 @@ class _LoginScreen extends State<LoginScreen> {
             ),
             onPressed: () {
               //print(_email);
-              userBloc.signInEmail(_email, _password, context);
-              print(_email);
-              print(_password);
+              _validateForm();
+              //userBloc.signInEmail(_email, _password, context);
+              //print(_email);
+              //print(_password);
             },
             elevation: 8.0,
             shape: RoundedRectangleBorder(
@@ -137,11 +139,24 @@ class _LoginScreen extends State<LoginScreen> {
     );
   }
 
-  void _validateForm() {
+  void _validateForm() async {
     final _form = _formKey.currentState;
 
     if (_form.validate()) {
       _form.save();
+      FirebaseUser user =
+          await userBloc.signInEmail(_email, _password, context);
+      userBloc.updateUserData(
+          User(
+            uid: user.uid,
+            //name: user.displayName,
+            email: user.email,
+            photoURL: user.photoUrl,
+            myOrders: null,
+            //myFavoriteProducts: null,
+            //myCart: null
+          ),
+          true);
 
       ///sign in
       _scaffoldKey.currentState.showSnackBar(_showSnackBar());
@@ -182,19 +197,43 @@ class _LoginScreen extends State<LoginScreen> {
               "images/iconos/google.jpg", 50, 300, "Sign In With Google", () {
             userBloc.signOut();
             userBloc.signInGoogle().then((FirebaseUser user) {
-              userBloc.updateUserData(User(
-                uid: user.uid,
-                name: user.displayName,
-                email: user.email,
-                photoURL: user.photoUrl,
-                myOrders: null,
-                //myFavoriteProducts: null,
-                //myCart: null
-              ));
+              var userDocRef = userBloc.userDocRef(user.uid);
+              userDocRef.get().then((userInfo) {
+                if (userInfo.exists) {
+                  print('true');
+                  userBloc.updateUserData(
+                      User(
+                        uid: user.uid,
+                        name: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoUrl,
+                        myOrders: null,
+                        //myFavoriteProducts: null,
+                        //myCart: null
+                      ),
+                      true);
+                } else {
+                  print('false');
+                  userBloc.updateUserData(
+                      User(
+                        uid: user.uid,
+                        name: user.displayName,
+                        email: user.email,
+                        photoURL: user.photoUrl,
+                        myOrders: null,
+                        //myFavoriteProducts: null,
+                        //myCart: null
+                      ),
+                      false);
+                }
+              });
+
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => TiendaPrincipalCupertino()));
+                      builder: (context) => TiendaPrincipalCupertino(
+                            uid: user.uid,
+                          )));
             });
           }),
         ],
