@@ -26,19 +26,6 @@ class _SplashScreenState extends State<SplashScreen> {
                         MaterialPageRoute(
                             builder: (context) => TiendaPrincipalCupertino(
                                 uid: currentUser.uid))),
-                    /*Firestore.instance
-                        .collection("users")
-                        .document(currentUser.uid)
-                        .get()
-                        .then((DocumentSnapshot result) =>
-                            Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        TiendaPrincipalCupertino(
-                                          uid: currentUser.uid,
-                                        ))))
-                        .catchError((err) => print(err))*/
                   }
               })
           .catchError((err) => print(err));

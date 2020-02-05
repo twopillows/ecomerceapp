@@ -1,9 +1,8 @@
 import 'dart:async';
-import 'dart:io';
+import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:generic_bloc_provider/generic_bloc_provider.dart';
 import 'package:ecomerceapp/Product/model/product.dart';
@@ -11,11 +10,13 @@ import 'package:ecomerceapp/Product/repository/firebase_storage_repository.dart'
 import 'package:ecomerceapp/User/model/user.dart';
 import 'package:ecomerceapp/User/repository/auth_repository.dart';
 import 'package:ecomerceapp/User/repository/cloud_firestore_repository.dart';
+import 'package:ecomerceapp/Payments/repository/stripe_services_repository.dart';
 
 class UserBloc implements Bloc {
   final _auth_repository = Auth_Repository();
   final _cloud_firestore_repository = CloudFirestoreRepository();
-  final _firebase_storage_repository = FirebaseStorageRepository();
+  final stripe_services_respository = StripeServicesRepository();
+  //final _firebase_storage_repository = FirebaseStorageRepository();
 
   ///USER DOC REF
   DocumentReference userDocRef(String uid) =>
@@ -66,6 +67,36 @@ class UserBloc implements Bloc {
 
   void eliminarProductoCarrito(var producto) =>
       _cloud_firestore_repository.eliminarProductoCarrito(producto);
+
+  ///PAYMENTS SECTION
+  ///CREATE STRIPE CUSTOMER
+  Future<void> createStripeCustomer({String email, String userId}) =>
+      stripe_services_respository.createStripeCustomer(
+          userId: userId, email: email);
+
+  ///ADD CARD
+  Future<void> addCard(
+          {int cardNumber, int month, int year, int cvc, String stripeId}) =>
+      stripe_services_respository.addCard(
+          stripeId: stripeId,
+          year: year,
+          month: month,
+          cvc: cvc,
+          cardNumber: cardNumber);
+
+  ///CREATE CHARGE TO CUSTOMER
+  Future<void> charge(
+          {int amount,
+          String currency,
+          String sourceToken,
+          String descripcion,
+          String customerID}) =>
+      stripe_services_respository.charge(
+          sourceToken: sourceToken,
+          customerID: customerID,
+          currency: currency,
+          descripcion: descripcion,
+          amount: amount);
 
   @override
   void dispose() {}

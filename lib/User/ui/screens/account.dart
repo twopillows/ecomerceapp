@@ -9,6 +9,7 @@ import 'package:ecomerceapp/User/ui/screens/payment_screen.dart';
 import 'package:ecomerceapp/User/ui/screens/login_screen.dart';
 import 'package:ecomerceapp/widgets/general_button.dart';
 import 'package:ecomerceapp/widgets/gradient_back.dart';
+import 'package:ecomerceapp/services/stripe.dart';
 
 class Account extends StatefulWidget {
   final String uid;
@@ -154,6 +155,26 @@ class _AccountState extends State<Account> {
         ),
         InkWell(
           onTap: () {
+            StripeServices ss = StripeServices();
+            ss.charge(
+                amount: 200,
+                descripcion: 'hello',
+                currency: 'usd',
+                customerID: 'cus_Gfp1JnDzeEirzj',
+                sourceToken: 'v8j0IJ49a6KHlgne');
+
+            userBloc.createStripeCustomer(
+                email: 'pepe@gmail.com', userId: widget.uid);
+
+            ///$$$$$$$4$$$$$$$
+            //ss.createStripeCustomer(
+            //email: 'pepe@gmail.com', userId: widget.uid);
+            /*ss.addCard(
+                cardNumber: 4242424242424242,
+                cvc: 424,
+                month: 02,
+                year: 22,
+                stripeId: 'cus_Gfp1JnDzeEirzj');*/
             Navigator.of(context)
                 .push(MaterialPageRoute(builder: (context) => PaymentScreen()));
           },
